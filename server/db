@@ -1,0 +1,8 @@
+postgres=# CREATE DATABASE late_show_db;
+CREATE DATABASE
+
+postgres=# CREATE USER abigaeli WITH PASSWORD 'your_password';
+CREATE ROLE
+
+postgres=# GRANT ALL PRIVILEGES ON DATABASE late_show_db TO abigaeli;
+GRANT
