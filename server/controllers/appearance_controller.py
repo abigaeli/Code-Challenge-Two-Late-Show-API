@@ -7,7 +7,7 @@ from server import db
 
 appearance_bp = Blueprint('appearances', __name__)
 
-@appearance_bp.route('/appearances', methods=['POST'])
+@appearance_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_appearance():
     data = request.get_json()
@@ -34,3 +34,13 @@ def create_appearance():
         'guest_id': appearance.guest_id,
         'episode_id': appearance.episode_id
     }), 201
+
+@appearance_bp.route('/', methods=['GET'], strict_slashes=False)
+def get_appearances():
+    appearances = Appearance.query.all()
+    return jsonify([{
+        'id': appearance.id,
+        'rating': appearance.rating,
+        'guest_id': appearance.guest_id,
+        'episode_id': appearance.episode_id
+    } for appearance in appearances]), 200

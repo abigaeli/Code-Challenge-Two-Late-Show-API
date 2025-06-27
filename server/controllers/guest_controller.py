@@ -3,7 +3,7 @@ from server.models.guest import Guest
 
 guest_bp = Blueprint('guests', __name__)
 
-@guest_bp.route('/guests', methods=['GET'])
+@guest_bp.route('/', methods=['GET'], strict_slashes=False)
 def get_guests():
     guests = Guest.query.all()
     return jsonify([{

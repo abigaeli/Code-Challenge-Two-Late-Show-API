@@ -2,12 +2,7 @@
 
 # app = create_app()
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-
-# Create instances of extensions
-db = SQLAlchemy()
-migrate = Migrate()
+from server.extensions import db, jwt, migrate
 
 def create_app():
     app = Flask(__name__)

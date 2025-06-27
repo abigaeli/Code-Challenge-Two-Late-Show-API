@@ -6,7 +6,7 @@ from server import db
 
 episode_bp = Blueprint('episodes', __name__)
 
-@episode_bp.route('/episodes', methods=['GET'])
+@episode_bp.route('/', methods=['GET'], strict_slashes=False)
 def get_episodes():
     episodes = Episode.query.all()
     return jsonify([{
@@ -15,7 +15,7 @@ def get_episodes():
         'number': episode.number
     } for episode in episodes]), 200
 
-@episode_bp.route('/episodes/<int:id>', methods=['GET'])
+@episode_bp.route('/<int:id>', methods=['GET'])
 def get_episode(id):
     episode = Episode.query.get_or_404(id)
     appearances = [{
@@ -32,7 +32,7 @@ def get_episode(id):
         'appearances': appearances
     }), 200
 
-@episode_bp.route('/episodes/<int:id>', methods=['DELETE'])
+@episode_bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_episode(id):
     episode = Episode.query.get_or_404(id)

@@ -1,12 +1,6 @@
 from flask import Flask
-from flask_migrate import Migrate
-from flask_jwt_extended import JWTExtended
-from flask_sqlalchemy import SQLAlchemy
 from server.config import Config
-
-db = SQLAlchemy()
-jwt = JWTExtended()
-migrate = Migrate()
+from server.extensions import db, jwt, migrate
 
 def create_app():
     app = Flask(__name__)
@@ -22,10 +16,10 @@ def create_app():
     from server.controllers.guest_controller import guest_bp
     from server.controllers.appearance_controller import appearance_bp
     
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(episode_bp)
-    app.register_blueprint(guest_bp)
-    app.register_blueprint(appearance_bp)
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(episode_bp, url_prefix='/episodes')
+    app.register_blueprint(guest_bp, url_prefix='/guests')
+    app.register_blueprint(appearance_bp, url_prefix='/appearances')
     
     return app
 
